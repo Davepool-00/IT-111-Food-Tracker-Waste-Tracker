@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from tracker.views import FoodItemListCreateView, OrganizationListCreateView, DonationListCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-      path('api/', include('tracker.urls')), 
+    path('api/fooditems/', FoodItemListCreateView.as_view(), name='fooditem-list'),
+    path('api/organizations/', OrganizationListCreateView.as_view(), name='organization-list'),
+    path('api/donations/', DonationListCreateView.as_view(), name='donation-list'),
 ]
-
