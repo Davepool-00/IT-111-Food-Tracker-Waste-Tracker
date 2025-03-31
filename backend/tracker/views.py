@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import FoodItem, Organization, Donation
 from .serializers import FoodItemSerializer, OrganizationSerializer, DonationSerializer, UserSerializer
+from rest_framework.permissions import IsAuthenticated
 
 User = get_user_model()
 
@@ -27,8 +28,9 @@ class RegisterUserView(generics.CreateAPIView):
 
 class FoodItemListCreateView(generics.ListCreateAPIView):
     queryset = FoodItem.objects.all()
-    serializer_class = FoodItemSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Requires login
+    serializer_class = FoodItemSerializer     
+    permission_classes = [IsAuthenticated]  # Protect this endpoint
+    # permission_classes = [permissions.IsAuthenticated]  # Requires login
 
 class OrganizationListCreateView(generics.ListCreateAPIView):
     queryset = Organization.objects.all()

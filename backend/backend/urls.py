@@ -16,11 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tracker.views import FoodItemListCreateView, OrganizationListCreateView, DonationListCreateView
+from tracker.views import (
+    FoodItemListCreateView, OrganizationListCreateView, DonationListCreateView, RegisterUserView
+)
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # Food Donation API Endpoints
     path('api/fooditems/', FoodItemListCreateView.as_view(), name='fooditem-list'),
     path('api/organizations/', OrganizationListCreateView.as_view(), name='organization-list'),
     path('api/donations/', DonationListCreateView.as_view(), name='donation-list'),
+
+    # User Registration & Authentication
+    path('api/register/', RegisterUserView.as_view(), name='register'),
+    path('api/login/', TokenObtainPairView.as_view(), name='login'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
